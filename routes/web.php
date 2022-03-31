@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PostLikeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,4 +31,5 @@ Route::group(['prefix'=>'api'], function(){
 Route::post('login', [LoginController::class, 'login']);
 
     Route::resource('posts',PostController::class);
+    Route::resource('posts/{post}/likes',PostLikeController::class);
 });
