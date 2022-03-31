@@ -17,4 +17,9 @@ class Like extends Model
 
         return $this->morphTo();
     }
+
+    public function avatar(){
+
+        return 'https://www.pngegg.com/ar/png-wpleh'.md5($this->email);
+    }
 }

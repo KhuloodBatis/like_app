@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\PostCreated;
 use App\Http\Resources\PostResource;
 use App\Http\Resources\UserResource;
 use App\Models\Post;
@@ -15,7 +16,8 @@ class PostController extends Controller
         $this->middleware(['auth']);
     }
     public function index(Post $post)
-    {   dd($post->likers);
+    {
+        // dd($post->likers);
         $posts = Post::latest()->get();
         return PostResource::collection($posts);
     }
@@ -34,8 +36,9 @@ class PostController extends Controller
         // return new PostResource($post);
 
         $post = $request->user()->posts()->create($request->only('body'));
+        //to uses in webscokets
+        event(new PostCreated($post));
 
-        //return $post; //user_id
         return  new PostResource($post);
     }
 }
